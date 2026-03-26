@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saikrishna — AI/ML Engineer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --bg2: #080d1a;
+    --surface: #0d1425;
+    --surface2: #111b30;
+    --border: rgba(99,157,255,0.12);
+    --accent: #4f8fff;
+    --accent2: #7eb3ff;
+    --accent3: #a8d0ff;
+    --gold: #f0c060;
+    --text: #e8edf8;
+    --text2: #8ea3c8;
+    --text3: #5a7099;
+    --glow: rgba(79,143,255,0.15);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(5,8,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--accent2);
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-cta:hover { background: var(--glow); border-color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(30,60,140,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(79,143,255,0.08) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(79,143,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,143,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 760px;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(79,143,255,0.08);
+    border: 1px solid rgba(79,143,255,0.2);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent2);
+    letter-spacing: 0.06em;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 8px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1 .name-accent { color: var(--accent); }
+  .hero-subtitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 500;
+    color: var(--text2);
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text2);
+    line-height: 1.75;
+    max-width: 580px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .hero-stats {
+    display: flex; gap: 40px;
+    margin-bottom: 44px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.78rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 13px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 32px rgba(79,143,255,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(79,143,255,0.4); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text2);
+    padding: 13px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .hero-visual {
+    position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+    width: 320px; height: 320px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .avatar-ring {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(79,143,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  .avatar-ring::before {
+    content: '';
+    position: absolute; inset: 8px;
+    border-radius: 50%;
+    border: 1px dashed rgba(79,143,255,0.15);
+  }
+  .avatar-inner {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    border: 2px solid rgba(79,143,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    animation: spin 20s linear reverse infinite;
+    font-family: 'Syne', sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.05em;
+    box-shadow: 0 0 80px rgba(79,143,255,0.15), inset 0 0 40px rgba(79,143,255,0.05);
+  }
+  .orbit-dot {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .orbit-dot:nth-child(1) { top: 10px; left: 50%; transform: translateX(-50%); }
+  .orbit-dot:nth-child(2) { bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .orbit-dot:nth-child(3) { right: 10px; top: 50%; transform: translateY(-50%); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 48px; position: relative; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  .section-sub {
+    color: var(--text2);
+    font-size: 1.05rem;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 64px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 48px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text p {
+    color: var(--text2);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--text); }
+  .about-contact {
+    margin-top: 32px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--text2);
+    font-size: 0.9rem;
+  }
+  .contact-item .icon {
+    width: 32px; height: 32px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .about-info-cards {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .info-card:hover { border-color: rgba(79,143,255,0.3); transform: translateX(4px); }
+  .info-card-label { font-size: 0.72rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; font-family: 'JetBrains Mono', monospace; }
+  .info-card-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--text); }
+  .info-card-sub { font-size: 0.85rem; color: var(--text2); margin-top: 2px; }
+
+  /* ── PROJECTS ── */
+  #projects { }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 100% 80% at 50% -20%, rgba(79,143,255,0.06) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-card:hover { border-color: rgba(79,143,255,0.35); transform: translateY(-4px); box-shadow: 0 16px 60px rgba(0,0,0,0.4); }
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .project-year {
+    font-size: 0.78rem;
+    color: var(--text3);
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .project-desc {
+    color: var(--text2);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .project-result {
+    background: rgba(79,143,255,0.06);
+    border: 1px solid rgba(79,143,255,0.12);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+  }
+  .project-result-label {
+    font-size: 0.7rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+  }
+  .project-result-text {
+    color: var(--text);
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+  .project-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .project-card.featured .project-left {}
+  .project-card.featured .project-right {}
+  .stat-highlight {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-highlight-label { font-size: 0.78rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg2); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.2s;
+  }
+  .skill-group:hover { border-color: rgba(79,143,255,0.25); }
+  .skill-group-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-items { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-item {
+    background: rgba(79,143,255,0.06);
+    border: 1px solid rgba(79,143,255,0.1);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    color: var(--text2);
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .skill-item:hover { color: var(--accent2); border-color: rgba(79,143,255,0.3); }
+
+  /* ── COURSES ── */
+  #courses { }
+  .courses-list { display: flex; flex-direction: column; gap: 2px; }
+  .course-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    align-items: start;
+  }
+  .course-item:hover { }
+  .course-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--surface2);
+    line-height: 1;
+    padding-top: 4px;
+    transition: color 0.2s;
+  }
+  .course-item:hover .course-num { color: rgba(79,143,255,0.3); }
+  .course-content {}
+  .course-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .course-desc { color: var(--text2); font-size: 0.9rem; line-height: 1.7; margin-bottom: 14px; }
+  .course-skills {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .course-skill {
+    font-size: 0.72rem;
+    color: var(--accent);
+    background: rgba(79,143,255,0.08);
+    border: 1px solid rgba(79,143,255,0.15);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── WRITING ── */
+  #writing { background: var(--bg2); }
+  .writing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px;
+    max-width: 900px;
+  }
+  .writing-badge {
+    display: inline-block;
+    background: rgba(240,192,96,0.1);
+    border: 1px solid rgba(240,192,96,0.2);
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .writing-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .writing-section { margin-bottom: 28px; }
+  .writing-section h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .writing-section p { color: var(--text2); font-size: 0.9rem; line-height: 1.75; margin-bottom: 12px; }
+  .metrics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  .metrics-table th {
+    background: var(--surface2);
+    padding: 10px 16px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+  }
+  .metrics-table td {
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    color: var(--text2);
+    border-bottom: 1px solid rgba(99,157,255,0.06);
+  }
+  .metrics-table td:first-child { color: var(--text); font-weight: 500; }
+  .metrics-table td:nth-child(2) { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+
+  /* ── RESUME ── */
+  #resume { }
+  .resume-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 48px;
+  }
+  .resume-section { margin-bottom: 48px; }
+  .resume-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .resume-item { margin-bottom: 20px; }
+  .resume-item-title { font-weight: 600; color: var(--text); font-size: 0.95rem; margin-bottom: 3px; }
+  .resume-item-meta { font-size: 0.8rem; color: var(--text3); margin-bottom: 6px; }
+  .resume-item-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+  .objective-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 36px;
+    font-size: 0.9rem;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .skills-compact { display: flex; flex-direction: column; gap: 14px; }
+  .skill-row { }
+  .skill-row-label { font-size: 0.72rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; }
+  .skill-row-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    color: var(--text2);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .cgpa-display {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .cgpa-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: var(--gold); line-height: 1; }
+  .cgpa-label { font-size: 0.72rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px 48px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .footer-name span { color: var(--accent); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { text-decoration: none; color: var(--text3); font-size: 0.82rem; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent2); }
+  .footer-copy { color: var(--text3); font-size: 0.78rem; }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-line {
+    position: fixed; top: 64px; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    z-index: 850;
+    transition: width 0.1s;
+    width: 0%;
+  }
+
+  /* ── SECTION TRANSITIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    #hero { padding: 100px 24px 60px; }
+    .hero-visual { display: none; }
+    section { padding: 70px 24px; }
+    .divider { margin: 0 24px; }
+    footer { padding: 40px 24px; }
+    .about-grid, .projects-grid, .resume-grid, .skills-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-line" id="scrollLine"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">SK<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#resume">Resume</a></li>
+  </ul>
+  <a href="mailto:shanmukhavenkatasa.2025@vit.ac.in" class="nav-cta">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">B.Tech CSE (AI &amp; ML) · VIT Vellore · 2025–2029</div>
+    <h1>I Shanmukha Venkata<br><span class="name-accent">Saikrishna</span></h1>
+    <div class="hero-subtitle">AI/ML Engineer · Computer Vision · IoT Systems</div>
+    <p class="hero-desc">
+      First-year engineer at VIT Vellore building intelligent systems that solve real-world problems — from autonomous vehicle detection to smart energy management. Driven by curiosity, shaped by code.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">9.3</div>
+        <div class="stat-label">CGPA</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">92%</div>
+        <div class="stat-label">Best Accuracy</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Core Courses</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#resume" class="btn-secondary">Resume</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="avatar-ring">
+      <div class="orbit-dot"></div>
+      <div class="orbit-dot"></div>
+      <div class="orbit-dot"></div>
+      <div class="avatar-inner">SK</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">// 01 — About</div>
+    <h2 class="section-title">Driven by curiosity,<br>defined by code.</h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I am <strong>I Shanmukha Venkata Saikrishna</strong>, a first-year B.Tech student specialising in <strong>Computer Science Engineering with AI & Machine Learning</strong> at Vellore Institute of Technology — one of India's premier technology institutions.</p>
+      <p>My academic journey is driven by a deep fascination for how intelligent systems can reshape the world. I chose AI and Machine Learning because I believe this discipline will define the next era of human progress.</p>
+      <p>My ambition is to develop intelligent systems that solve real-world problems — from smart energy management to computer vision applications — and to eventually work at the <strong>intersection of AI and societal benefit</strong>. Every project I undertake is a step toward that larger vision.</p>
+      <div class="about-contact">
+        <div class="contact-item"><div class="icon">✉</div> shanmukhavenkatasa.2025@vit.ac.in</div>
+        <div class="contact-item"><div class="icon">☏</div> +91 7338870507</div>
+        <div class="contact-item"><div class="icon">🏛</div> VIT Vellore, Tamil Nadu, India</div>
+        <div class="contact-item"><div class="icon">#</div> Reg. No: 25BAI0140</div>
+      </div>
+    </div>
+    <div class="about-info-cards">
+      <div class="info-card">
+        <div class="info-card-label">Degree</div>
+        <div class="info-card-value">B.Tech Computer Science Engineering</div>
+        <div class="info-card-sub">Specialisation: Artificial Intelligence & Machine Learning</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Institution</div>
+        <div class="info-card-value">VIT Vellore</div>
+        <div class="info-card-sub">Vellore Institute of Technology, Vellore</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Duration & Year</div>
+        <div class="info-card-value">2025 — 2029</div>
+        <div class="info-card-sub">Currently in 1st Year</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">CGPA</div>
+        <div class="info-card-value" style="color:var(--gold);font-size:1.5rem;">9.3 / 10.0</div>
+        <div class="info-card-sub">Academic Year 2025–2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">// 02 — Projects</div>
+    <h2 class="section-title">Engineering work<br>that matters.</h2>
+    <p class="section-sub">Four projects spanning computer vision, IoT, embedded systems, and full-stack development — each demonstrating a distinct facet of applied engineering.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Featured: ANPD -->
+    <div class="project-card featured reveal">
+      <div class="project-left">
+        <div class="project-num">// PROJECT 01</div>
+        <div class="project-title">Automatic Number Plate Detection Algorithm</div>
+        <div class="project-year">2024 · Computer Vision / Deep Learning</div>
+        <p class="project-desc">An intelligent computer vision system designed to automatically detect, extract, and recognise vehicle number plates from real-time camera feeds or static images. Uses deep learning models to handle varying lighting conditions, angles, and plate formats.</p>
+        <p class="project-desc">Employs OpenCV for image preprocessing and contour detection, combined with a trained YOLOv5 / EasyOCR pipeline for plate localisation and character recognition. Tested on datasets of Indian vehicle plates.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">YOLOv5</span><span class="tag">EasyOCR</span><span class="tag">Deep Learning</span><span class="tag">Computer Vision</span>
+        </div>
+      </div>
+      <div class="project-right">
+        <div class="project-result" style="margin-bottom:20px;">
+          <div class="project-result-label">Key Results</div>
+          <div class="project-result-text">Successfully handled diverse plate formats including white, yellow, and green plates. Pipeline runs at near real-time speeds, suitable for traffic surveillance and automated toll systems.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div style="text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+            <div class="stat-highlight">92%+</div>
+            <div class="stat-highlight-label">Detection Accuracy</div>
+          </div>
+          <div style="text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+            <div class="stat-highlight">22</div>
+            <div class="stat-highlight-label">FPS on GPU</div>
+          </div>
+          <div style="text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+            <div class="stat-highlight">500+</div>
+            <div class="stat-highlight-label">Images Tested</div>
+          </div>
+          <div style="text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:20px;">
+            <div class="stat-highlight">94.1%</div>
+            <div class="stat-highlight-label">Precision</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BMS -->
+    <div class="project-card reveal">
+      <div class="project-num">// PROJECT 02</div>
+      <div class="project-title">Battery Management System for Electric Vehicles</div>
+      <div class="project-year">2024 · Embedded Systems / IoT</div>
+      <p class="project-desc">A comprehensive BMS designed to monitor and control EV battery packs — tracking voltage, current, temperature, and State of Charge in real time, preventing overcharging and deep discharge events.</p>
+      <div class="project-result">
+        <div class="project-result-label">Results</div>
+        <div class="project-result-text">Monitored cell voltages within ±0.02V accuracy. Successfully detected and flagged over-voltage and under-voltage conditions. Real-time monitoring interface logs all battery health parameters.</div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">Arduino</span><span class="tag">ESP32</span><span class="tag">IoT</span><span class="tag">Coulomb Counting</span><span class="tag">Embedded C</span>
+      </div>
+    </div>
+
+    <!-- Smart Irrigation -->
+    <div class="project-card reveal">
+      <div class="project-num">// PROJECT 03</div>
+      <div class="project-title">Smart Irrigation System (IoT-Based)</div>
+      <div class="project-year">2024 · IoT / Embedded Systems / Agriculture Tech</div>
+      <p class="project-desc">An automated irrigation system leveraging IoT sensors and microcontrollers to optimise water usage in agricultural fields. Intelligently decides when to irrigate based on real-time soil moisture, weather API inputs, and user-defined thresholds.</p>
+      <div class="project-result">
+        <div class="project-result-label">Results</div>
+        <div class="project-result-text">Achieved 30–40% estimated water savings compared to manual schedules. Successfully integrated real-time weather data for predictive irrigation avoidance.</div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">ESP8266</span><span class="tag">Blynk</span><span class="tag">ThingSpeak</span><span class="tag">Weather API</span><span class="tag">Soil Sensors</span>
+      </div>
+    </div>
+
+    <!-- Electricity Portal -->
+    <div class="project-card reveal" style="grid-column:span 2;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+        <div>
+          <div class="project-num">// PROJECT 04</div>
+          <div class="project-title">Advanced Electricity Management Portal</div>
+          <div class="project-year">2024–2025 · Web Application / Python / Data Analytics</div>
+          <p class="project-desc">A full-stack web-based electricity management portal built using Python (Flask). Allows households and organisations to monitor, analyse, and optimise electricity consumption through an interactive dashboard with real-time charts, alerts, and predictive analytics.</p>
+          <div class="project-tags">
+            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">SQLite</span><span class="tag">Chart.js</span><span class="tag">Bootstrap</span><span class="tag">ReportLab</span><span class="tag">REST API</span>
+          </div>
+        </div>
+        <div>
+          <div class="project-result" style="margin-bottom:16px;">
+            <div class="project-result-label">Key Features</div>
+            <div class="project-result-text">Bill estimation engine · Peak-hour usage alerts · Appliance-level consumption tracking · Historical trend analysis · PDF report generation</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+              <div class="stat-highlight" style="font-size:1.8rem;">~95%</div>
+              <div class="stat-highlight-label">Bill Prediction Accuracy</div>
+            </div>
+            <div style="text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+              <div class="stat-highlight" style="font-size:1.8rem;">10K</div>
+              <div class="stat-highlight-label">Data Points Processed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="reveal">
+    <div class="section-label">// 03 — Skills</div>
+    <h2 class="section-title">Technical arsenal.</h2>
+    <p class="section-sub">A growing toolkit spanning languages, frameworks, hardware, and data tools.</p>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-items">
+        <span class="skill-item">Python</span>
+        <span class="skill-item">Java</span>
+        <span class="skill-item">C</span>
+        <span class="skill-item">C++</span>
+        <span class="skill-item">HTML5</span>
+        <span class="skill-item">CSS3</span>
+        <span class="skill-item">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">AI / ML Tools</div>
+      <div class="skill-items">
+        <span class="skill-item">scikit-learn</span>
+        <span class="skill-item">OpenCV</span>
+        <span class="skill-item">YOLOv5</span>
+        <span class="skill-item">EasyOCR</span>
+        <span class="skill-item">NumPy</span>
+        <span class="skill-item">pandas</span>
+        <span class="skill-item">Matplotlib</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Web Frameworks</div>
+      <div class="skill-items">
+        <span class="skill-item">Flask</span>
+        <span class="skill-item">Bootstrap</span>
+        <span class="skill-item">Chart.js</span>
+        <span class="skill-item">REST API</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Hardware / IoT</div>
+      <div class="skill-items">
+        <span class="skill-item">Arduino</span>
+        <span class="skill-item">ESP8266</span>
+        <span class="skill-item">ESP32</span>
+        <span class="skill-item">Raspberry Pi</span>
+        <span class="skill-item">Sensors</span>
+        <span class="skill-item">Logisim</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Databases</div>
+      <div class="skill-items">
+        <span class="skill-item">SQLite</span>
+        <span class="skill-item">MySQL</span>
+        <span class="skill-item">PostgreSQL</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Tools & Platforms</div>
+      <div class="skill-items">
+        <span class="skill-item">Git</span>
+        <span class="skill-item">GitHub</span>
+        <span class="skill-item">VS Code</span>
+        <span class="skill-item">Jupyter</span>
+        <span class="skill-item">Blynk</span>
+        <span class="skill-item">ThingSpeak</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="reveal">
+    <div class="section-label">// 04 — Courses</div>
+    <h2 class="section-title">Academic foundation.</h2>
+    <p class="section-sub">Core courses that have shaped my analytical and programming foundation at VIT.</p>
+  </div>
+  <div class="courses-list">
+    <div class="course-item reveal">
+      <div class="course-num">01</div>
+      <div class="course-content">
+        <div class="course-name">Problem Solving and Object-Oriented Programming (PSOOP)</div>
+        <p class="course-desc">Introduced principles of structured problem-solving and object-oriented programming using Java. Covered core OOP concepts including encapsulation, inheritance, polymorphism, and abstraction. Emphasised algorithm design, data structures, and debugging strategies — skills that form the backbone of any software project.</p>
+        <div class="course-skills">
+          <span class="course-skill">Java</span>
+          <span class="course-skill">OOP Design Patterns</span>
+          <span class="course-skill">Algorithm Complexity</span>
+          <span class="course-skill">Data Structures</span>
+          <span class="course-skill">Debugging</span>
+        </div>
+      </div>
+    </div>
+    <div class="course-item reveal">
+      <div class="course-num">02</div>
+      <div class="course-content">
+        <div class="course-name">Digital Principles and System Design</div>
+        <p class="course-desc">Rigorous introduction to digital logic design — the hardware foundation underlying all computing systems. Designed and analysed combinational and sequential circuits, including multiplexers, decoders, flip-flops, and finite state machines. Bridged theoretical logic with practical hardware design using Logisim, directly supporting BMS and IoT project work.</p>
+        <div class="course-skills">
+          <span class="course-skill">Boolean Algebra</span>
+          <span class="course-skill">Logic Gate Design</span>
+          <span class="course-skill">Sequential Circuits</span>
+          <span class="course-skill">FSM Modeling</span>
+          <span class="course-skill">Logisim</span>
+        </div>
+      </div>
+    </div>
+    <div class="course-item reveal">
+      <div class="course-num">03</div>
+      <div class="course-content">
+        <div class="course-name">Introduction to Artificial Intelligence & Machine Learning</div>
+        <p class="course-desc">Opened the door to core AI/ML concepts defining my specialisation. Topics included supervised and unsupervised learning algorithms (linear regression, decision trees, k-means clustering), neural network fundamentals, and deep learning frameworks. Hands-on lab sessions using Python, NumPy, pandas, and scikit-learn — directly applicable to the ANPD project.</p>
+        <div class="course-skills">
+          <span class="course-skill">Python for ML</span>
+          <span class="course-skill">NumPy / pandas</span>
+          <span class="course-skill">scikit-learn</span>
+          <span class="course-skill">Supervised Learning</span>
+          <span class="course-skill">Neural Networks</span>
+          <span class="course-skill">Feature Engineering</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WRITING -->
+<section id="writing">
+  <div class="reveal">
+    <div class="section-label">// 05 — Sample Writing</div>
+    <h2 class="section-title">Technical communication.</h2>
+    <p class="section-sub">A sample technical report demonstrating the ability to communicate complex AI pipelines with clarity, depth, and professional structure.</p>
+  </div>
+  <div class="writing-card reveal">
+    <div class="writing-badge">Technical Report · Introduction to AI & ML · Semester I</div>
+    <div class="writing-title">Automatic Number Plate Detection System</div>
+
+    <div class="writing-section">
+      <h4>Abstract</h4>
+      <p>Design, implementation, and evaluation of an ANPD system using computer vision and deep learning. The system leverages OpenCV for image preprocessing, YOLOv5 for plate localisation, and EasyOCR for character recognition. Testing on a dataset of 500+ Indian vehicle images yielded a detection accuracy of 92.3%, demonstrating the system's practical viability for traffic management applications.</p>
+    </div>
+
+    <div class="writing-section">
+      <h4>System Architecture</h4>
+      <p><strong style="color:var(--text);">Stage 1 — Image Preprocessing:</strong> Input frames are converted to grayscale, subjected to bilateral filtering to reduce noise while preserving edges, and Canny edge detection is applied to identify regions of interest.</p>
+      <p><strong style="color:var(--text);">Stage 2 — Plate Localisation:</strong> A fine-tuned YOLOv5 model trained on a custom dataset of Indian number plates identifies and extracts bounding box coordinates of the plate region with high precision.</p>
+      <p><strong style="color:var(--text);">Stage 3 — Character Recognition:</strong> The cropped plate region is passed to EasyOCR, which performs multi-language OCR optimised for alphanumeric plate characters, outputting the plate text string.</p>
+    </div>
+
+    <div class="writing-section">
+      <h4>Results & Analysis</h4>
+      <p>The system was evaluated on 500 test images across varying conditions (daytime, nighttime, rain, motion blur):</p>
+      <table class="metrics-table">
+        <tr><th>Metric</th><th>Value</th><th>Condition</th></tr>
+        <tr><td>Detection Accuracy</td><td>92.3%</td><td>All conditions</td></tr>
+        <tr><td>Precision</td><td>94.1%</td><td>Good lighting</td></tr>
+        <tr><td>Recall</td><td>89.7%</td><td>Low light included</td></tr>
+        <tr><td>Processing Speed</td><td>22 FPS</td><td>GPU (GTX 1650)</td></tr>
+      </table>
+    </div>
+
+    <div class="writing-section">
+      <h4>Conclusion</h4>
+      <p>This project successfully demonstrates the practical implementation of a real-time ANPD system using modern deep learning tools. The combination of YOLOv5 and EasyOCR proved effective for Indian plate recognition. Future work will focus on improving low-light performance and integrating the system with a live traffic camera feed for real-world deployment testing.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="reveal">
+    <div class="section-label">// 06 — Resume</div>
+    <h2 class="section-title">At a glance.</h2>
+  </div>
+  <div class="resume-grid reveal">
+    <div>
+      <div class="objective-box">
+        Motivated and curious first-year B.Tech student in CSE (AI & ML) at VIT Vellore with hands-on project experience in computer vision, IoT systems, and Python web development. Seeking opportunities to apply technical skills in real-world AI/ML problems, contribute to research, and grow as an innovative engineer.
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Education</div>
+        <div class="resume-item">
+          <div class="resume-item-title">B.Tech — Computer Science Engineering (AI & ML)</div>
+          <div class="resume-item-meta">VIT Vellore · 2025–2029 · Currently 1st Year</div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Key Projects</div>
+        <div class="resume-item">
+          <div class="resume-item-title">Automatic Number Plate Detection</div>
+          <div class="resume-item-desc">OpenCV + YOLOv5 + EasyOCR pipeline achieving 92.3% accuracy on Indian vehicle plates</div>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-title">Battery Management System for EVs</div>
+          <div class="resume-item-desc">ESP32-based BMS with real-time SoC monitoring, voltage protection, and thermal management</div>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-title">Smart Irrigation System</div>
+          <div class="resume-item-desc">IoT-based automated irrigation with ESP8266, soil moisture sensors, weather API integration; ~35% water savings</div>
+        </div>
+        <div class="resume-item">
+          <div class="resume-item-title">Advanced Electricity Management Portal</div>
+          <div class="resume-item-desc">Python/Flask full-stack web app with analytics dashboard, bill prediction, and usage alert system</div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Achievements</div>
+        <div class="resume-item">
+          <div class="resume-item-desc">Participated in Code2Create and Codechef competitive programming events</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="cgpa-display">
+        <div class="cgpa-num">9.3</div>
+        <div class="cgpa-label">CGPA / 10.0</div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Technical Skills</div>
+        <div class="skills-compact">
+          <div class="skill-row">
+            <div class="skill-row-label">Languages</div>
+            <div class="skill-row-items">
+              <span class="skill-chip">Python</span><span class="skill-chip">Java</span><span class="skill-chip">C</span><span class="skill-chip">C++</span><span class="skill-chip">HTML</span><span class="skill-chip">CSS</span><span class="skill-chip">JS</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-label">AI/ML</div>
+            <div class="skill-row-items">
+              <span class="skill-chip">scikit-learn</span><span class="skill-chip">OpenCV</span><span class="skill-chip">YOLOv5</span><span class="skill-chip">EasyOCR</span><span class="skill-chip">NumPy</span><span class="skill-chip">pandas</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-label">Web</div>
+            <div class="skill-row-items">
+              <span class="skill-chip">Flask</span><span class="skill-chip">Bootstrap</span><span class="skill-chip">Chart.js</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-label">Hardware</div>
+            <div class="skill-row-items">
+              <span class="skill-chip">Arduino</span><span class="skill-chip">ESP8266</span><span class="skill-chip">ESP32</span><span class="skill-chip">RPi</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-row-label">Tools</div>
+            <div class="skill-row-items">
+              <span class="skill-chip">Git</span><span class="skill-chip">GitHub</span><span class="skill-chip">Jupyter</span><span class="skill-chip">VS Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Relevant Coursework</div>
+        <div class="resume-item">
+          <div class="resume-item-desc" style="line-height:1.9;">
+            Problem Solving & OOP (C/C++) · Digital Principles & System Design · Introduction to AI & ML · Engineering Mathematics I & II · Data Structures and Algorithms (ongoing)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">I Shanmukha Venkata <span>Saikrishna</span></div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="mailto:shanmukhavenkatasa.2025@vit.ac.in">Email</a>
+  </div>
+  <div class="footer-copy">B.Tech CSE (AI & ML) · VIT Vellore · 2025–2029</div>
+</footer>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.body.scrollHeight - window.innerHeight;
+    document.getElementById('scrollLine').style.width = (scrolled / total * 100) + '%';
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Stagger children if multiple
+        const children = entry.target.querySelectorAll('.project-card, .skill-group, .info-card, .course-item');
+        children.forEach((child, i) => {
+          child.style.transitionDelay = (i * 0.08) + 's';
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 120) current = section.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === '#' + current ? 'var(--accent2)' : '';
+    });
+  });
+</script>
+</body>
+</html>
